@@ -1,0 +1,100 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cookie&family=Dancing+Script:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+
+
+#navBar{
+    display:flex;
+    width:100%;
+    height:40px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid gold;
+    align-items: center;
+
+}
+
+body{
+    background-color: rgb(221, 244, 247);
+    font-family: 'Cookie', cursive;
+    color:rgb(255, 92, 119);
+    font-size: 30px;
+}
+
+#menu{
+    justify-self: center;
+    margin-left: 2%;
+    margin-top: 20px;
+    border-radius: 50%;
+    padding:10px;
+    background-color: rgb(253, 81, 109);
+    cursor: pointer;
+}
+
+
+#menuDiv{
+
+    display: none;
+    margin-top: 230px;
+    margin-left: 0px;
+    height:150px;
+    width:120px;
+    padding:10px;
+    font-size: 25px;
+    background-color: rgb(253, 81, 109);
+}
+
+#menuDiv p a{
+    color:gold;
+    text-decoration: none;
+    font-size: 28px;
+}
+
+#menuDiv p a:hover{
+    color: rgb(5, 5, 51);
+}
+
+
+.fa-bars{
+    color:rgb(253, 81, 109);
+    font-size: 25px;
+}
+
+#logo{
+    color:rgb(17, 14, 0);
+    font-size: 40px;
+    font-weight: 500;
+    font-family: 'Caveat', cursive;
+    width:200px;
+    margin-left: 3%;
+    margin-top: 0px;
+    text-shadow: 3px 4px 5px rgb(212, 2, 167);
+    letter-spacing: -1px;
+    line-height: 25px;
+}
+
+#search_div{
+    margin-left:50%;
+    justify-self: center;
+    margin-bottom: 10px;
+}
+
+#recipe_input{
+    height:25px;
+    width:350px;
+    outline: none;
+    border-left: 0ch;
+    border-right: 0ch;
+    border-top:0ch;
+    border-bottom:2px solid rgb(253, 81, 109);
+    font-size: 18px;
+    background-color: rgb(221, 244, 247);
+    color:rgb(253, 81, 109);
+    padding:2px;
+}
+
+.fa-magnifying-glass{
+   font-size: 15px;
+   color:rgb(253, 81, 109);
+}
+

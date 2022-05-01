@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/96fc2efcb3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="navbar.css">
+    <title>Document</title>
+    <style>
+        #random_div {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 80px;
+            grid-gap: 30px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            text-align-last: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navBar"></nav>
+
+
+    <div id="random_div">
+
+    </div>
+
+</body>
+
+</html>
+
+<script type="module">
+
+    import navbar from "../components/navbar.js";
+    let nav = document.getElementById("navBar");
+
+    nav.innerHTML = navbar();
+
+    let menu = document.getElementById('menu');
+
+    let menuDiv = document.getElementById("menuDiv");
+
+    let flag = false;
+
+    menu.addEventListener("click", () => {
+        if (flag === false) {
+            menu.style.backgroundColor = "gold";
+            menuDiv.style.display = "block";
+            menuDiv.style.position = "absolute";
+
+            flag = true
+
+        } else if (flag === true) {
+            menu.style.backgroundColor = "transparent";
+            menuDiv.style.display = "none";
+            menuDiv.style.position = "relative";
+
+            flag = false;
+        }
+
+
+    })
+
+
+    async function calrecipe() {
+        try {
+            let respon = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=Indian`);
+
+            let data = await respon.json();
+
+            console.log("data", data);
+
+            appendData(data.meals);
+        }
+
+        catch (error) {
+            console.log("error", error);
+
+        }
+
+
+    }
+
+
+    calrecipe();
+
+    let i = 0;
+
+    const appendData = (elem) => {
+
+        let random_div = document.getElementById("random_div");
+
+
+        elem.forEach((element) => {
+
+            if (i < 9) {
+
+                let { strMealThumb } = element;
+                let { strArea } = element;
+                let { strCategory } = element;
+                let { strMeal } = element;
+
+
+                let { strInstructions } = element;
+
+                let title_div = document.createElement('div');
+                title_div.setAttribute("id", "title");
+
+
+                let title = document.createElement('p');
+                title.innerText = strMeal;
+
+
+                let img = document.createElement('img');
+                img.src = strMealThumb;
+                img.style.height = "300px";
+
+
+                let details = document.createElement("div");
+                details.style.border = "1px solid gold";
+
+                let p1 = document.createElement('p');
+                p1.innerText = `${strArea} Recipe`;
+
+                let p2 = document.createElement('p');
+                p2.innerText = `Category: ${strCategory}`;
+
+
+
+                title_div.append(title, p1, p2);
+                details.append(img, title_div);
+
+                random_div.append(details);
+
+                i++;
+
+
+            }
+        })
+    }
+
+
+
+
+
+
+</script>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/96fc2efcb3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="index.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <nav id="navBar">
+    </nav>
+
+
+
+    <div id="head">
+
+        <div>
+            <p id="the_day">Recipe of the Day</p>
+        </div>
+
+
+    </div>
+
+
+    <div id="result_div">
+        <div id="random_div">
+            <div id="img"></div>
+            <div id="details"></div>
+        </div>
+
+        
+
+    </div>
+    <div id="search_results"></div>
+
+
+</body>
+
+</html>
+
+<script type="module">
+
+    import navbar from "../components/navbar.js";
+    let nav = document.getElementById("navBar");
+
+    nav.innerHTML = navbar();
+
+
+    let menu = document.getElementById('menu');
+
+    let menuDiv = document.getElementById("menuDiv");
+
+    let flag = false;
+
+    menu.addEventListener("click", () => {
+        if (flag === false) {
+            menu.style.backgroundColor = "gold";
+            menuDiv.style.display = "block";
+            menuDiv.style.position = "absolute";
+
+            flag = true
+
+        } else if (flag === true) {
+            menu.style.backgroundColor = "transparent";
+            menuDiv.style.display = "none";
+            menuDiv.style.position = "relative";
+
+            flag = false;
+        }
+
+
+    })
+
+    async function showecipe() {
+
+        try {
+            let respon = await fetch(`https://www.themealdb.com/api/json/v1/1/random.php`);
+
+            let data = await respon.json();
+
+            console.log("data", data);
+
+            appendData(data.meals);
+        }
+
+        catch (error) {
+            console.log("error", error);
+
+        }
+
+    }
+    showecipe();
+
+    const appendData = (elem) => {
+        elem.forEach((element) => {
+
+            let { strMealThumb } = element;
+            let { strArea } = element;
+            let { strCategory } = element;
+            let { strMeal } = element;
+            let { strIngredient1 } = element;
+            let { strIngredient2 } = element;
+            let { strIngredient3 } = element;
+            let { strIngredient4 } = element;
+            let { strIngredient5 } = element;
+            let { strIngredient6 } = element;
+            let { strIngredient7 } = element;
+            let { strIngredient8 } = element;
+            let { strIngredient9 } = element;
+            let { strIngredient10 } = element;
+            let { strIngredient11 } = element;
+            let { strIngredient12 } = element;
+            let { strIngredient13 } = element;
+            let { strIngredient14 } = element;
+            let { strIngredient15 } = element;
+
+            let { strMeasure1 } = element;
+            let { strMeasure2 } = element;
+            let { strMeasure3 } = element;
+            let { strMeasure4 } = element;
+            let { strMeasure5 } = element;
+            let { strMeasure6 } = element;
+            let { strMeasure7 } = element;
+            let { strMeasure8 } = element;
+            let { strMeasure9 } = element;
+            let { strMeasure10 } = element;
+            let { strMeasure11 } = element;
+            let { strMeasure12 } = element;
+            let { strMeasure13 } = element;
+            let { strMeasure14 } = element;
+            let { strMeasure15 } = element;
+
+            let { strInstructions } = element;
+
+            let title_div = document.createElement('div');
+            title_div.setAttribute("id", "title");
+
+
+            let title = document.createElement('p');
+            title.innerText = strMeal;
+
+            let img_div = document.getElementById("img");
+
+            let img = document.createElement('img');
+            img.src = strMealThumb;
+
+
+            let details = document.getElementById("details");
+
+            let p1 = document.createElement('p');
+            p1.innerText = `${strArea} Recipe`;
+
+            let p2 = document.createElement('p');
+            p2.innerText = `Category: ${strCategory}`;
+
+            let ingredients = document.createElement('p');
+            ingredients.innerText = `Ingredients: ${strIngredient1} ${strMeasure1}, ${strIngredient2} ${strMeasure2}, 
+            ${strIngredient3} ${strMeasure3}, ${strIngredient4} ${strMeasure4}, ${strIngredient5} ${strMeasure5}, 
+            ${strIngredient6} ${strMeasure6}, ${strIngredient7} ${strMeasure7}, ${strIngredient8} ${strMeasure8}, 
+            ${strIngredient9} ${strMeasure9}, ${strIngredient10} ${strMeasure10}, ${strIngredient11} ${strMeasure11}, 
+            ${strIngredient12} ${strMeasure12}, ${strIngredient13} ${strMeasure13}, ${strIngredient14} ${strMeasure14}, 
+            ${strIngredient15} ${strMeasure15}.`;
+
+            let instruction = document.createElement('p');
+            instruction.innerText = `Instructions: ${strInstructions}`;
+
+            img_div.append(img);
+
+
+            title_div.append(title, p1, p2);
+            details.append(title_div, ingredients, instruction);
+
+
+
+        })
+    }
+
+    let recipe = document.getElementById("recipe_input");
+    let search_results = document.getElementById("search_results");
+    let body_div = document.getElementById("random_div");
+
+    recipe.addEventListener("input", async () => {
+
+        try {
+            let input = document.getElementById("recipe_input").value;
+
+            search_results.style.display = "block";
+            search_results.style.height = "500px";
+            body_div.style.opacity= "20%";
+
+
+
+            let res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
+
+            let data_recipe = await res.json();
+
+            console.log("data_recipe", data_recipe);
+
+            appendDataRecipe(data_recipe.meals);
+        }
+        catch (err) {
+            console.log("err", err);
+        }
+    })
+
+    recipe.addEventListener("focusout", () => {
+        search_results.style.display = "none";
+        body_div.style.opacity= "100%";
+    })
+
+
+    const appendDataRecipe = (elem) => {
+
+        search_results.innerHTML = null;
+
+
+
+        elem.forEach((meals) => {
+
+
+            let mainDiv = document.createElement('div');
+            mainDiv.setAttribute("id", "mainDiv");
+
+            let p_div = document.createElement("div");
+            p_div.style.marginLeft = "20px";
+
+
+            let { strMeal } = meals;
+            let { idMeal } = meals;
+            let { strCategory } = meals;
+            let { strMealThumb } = meals;
+
+            let p1 = document.createElement("p");
+            p1.innerText = strMeal;
+            p1.style.marginTop = "0px";
+            p1.style.marginBottom = "5px";
+            p1.style.marginRight = "15px";
+            p1.style.fontSize = "25px";
+
+
+            let p2 = document.createElement("p");
+            p2.innerText = strCategory;
+            p2.style.marginTop = "0px";
+            p2.style.marginBottom = "5px";
+            p2.style.marginRight = "15px";
+            p2.style.fontSize = "20px";
+
+
+            let img = document.createElement("img");
+            img.src = strMealThumb;
+            img.style.height = "75px";
+            img.style.width = "110px";
+            img.style.marginRight = "0px";
+
+
+            p_div.append(p1, p2);
+            mainDiv.append(img, p_div);
+
+            search_results.append(mainDiv);
+
+            mainDiv.addEventListener("click", () => {
+                localStorage.setItem("meal-Id", idMeal);
+                window.location.href = "mealpage.html";
+            })
+
+
+
+
+
+
+
+
+
+        })
+    }
+
+
+
+</script>
